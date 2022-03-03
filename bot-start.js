@@ -35,7 +35,7 @@ client.on('interactionCreate', async (interaction) => {
 
     if (commandName === 'university') 
     {
-        await interaction.reply('`Coming soon.`');
+        await interaction.reply(await universityCommand());
     }
 
     if (commandName === 'campus')
