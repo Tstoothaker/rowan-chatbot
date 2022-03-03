@@ -11,6 +11,7 @@ exports.run = async (client) => {
         .setFooter({ text: `Made with '\u2665'`})
         .setTimestamp();
         return { embeds: [embed] };
+        
 }
 
 function generateRandomColour()
