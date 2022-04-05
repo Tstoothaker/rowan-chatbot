@@ -2,14 +2,13 @@ const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, interaction) => {
     // creates the default case if no arguments are given
-    // const year = (args !== null) ? args[0] : '';
     let year = '';
     if(Array.isArray(interaction)) {
         year = interaction[0];
     } else {
         if(interaction.options.get("year")) year = interaction.options.get("year").value;
     }
-    //console.log(year);
+    year = year.toString().toLowerCase();
     // basic message creation stuff
     const embed = new MessageEmbed()
         .setColor(generateRandomColour())
