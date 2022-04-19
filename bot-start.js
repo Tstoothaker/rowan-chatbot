@@ -19,35 +19,6 @@ const files = fs.readdirSync("./events").filter(file => file.endsWith(".js"));
  |          STARTUP SEQUENCE        |
  * =================================+
 */
-client.once('ready', () => {
-    console.log(`Logged in as ${client.user.tag}.`);
-});
-
-// code this when people are online so I can test
-client.on('guildMemberAdd', async (member) => {
-    member.guild.channels.get('channelID')
-        .send(`Welcome, ${member}!`);
-});
-
-client.on('interactionCreate', async (interaction) => {
-    const { commandName } = interaction;
-
-    if (!interaction.isCommand()) return;
-
-    if (commandName === 'help') 
-    {
-        await interaction.reply(await helpCommand());
-    }
-
-    if (commandName === 'university') 
-    {
-        await interaction.reply(await universityCommand());
-    }
-
-    if (commandName === 'campus')
-    {
-        await interaction.reply(await campusCommand());
-    }
 
 // Load events
 for (const file of files) {
@@ -56,19 +27,12 @@ for (const file of files) {
     client.on(eventName, event.bind(null, client)); // every event has our client var passed along
 }
 
-async function universityCommand()
-{
-    const embed = new MessageEmbed()
-        .setColor(generateRandomColour())
-        .setTitle('Rowan University Campus')
-        .setURL('https://www.rowan.edu/academics/colleges_and_schools/')
-        .setAuthor({ name: 'Rowan Campus', iconURL: 'https://i.imgur.com/OHHRbPl.jpg', url: 'https://www.rowan.edu/academics/colleges_and_schools/' })
-        .setDescription('Shows the different colleges and schools that Rowan has')
-        .setThumbnail('https://i.imgur.com/OHHRbPl.jpg')
-        .setFooter({ text: `Made with ${heart()}`})
-        .setTimestamp();
-    return { embeds: [embed] };
-}
+// Load commands
+client.commands = new Collection();
+const commands = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
+for (const file of commands) {
+    const commandName = file.split(".")[0]; // same deal as events
+    const command = require(`./commands/${file}`);
 
     console.log(`Loading ${commandName}.`);
     client.commands.set(commandName, command);
