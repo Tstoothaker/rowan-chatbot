@@ -3,11 +3,14 @@ const { MessageEmbed } = require("discord.js");
 exports.run = async (client, interaction) => {
 
     //var garage = args[0] ? args[0]: '';
-    let garage = '';
+    //let garage = '';
     if(Array.isArray(interaction)) {
         garage = interaction[0];
     } else {
         if(interaction.options.get("garage")) garage = interaction.options.get("garage").value;
+    }
+    if (garage == null){
+        garage = '';
     }
     garage = garage.toString().toLowerCase();
     
