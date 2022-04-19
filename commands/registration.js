@@ -2,7 +2,6 @@ const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, interaction) => {
     // creates the default case if no arguments are given
-    // const year = (args !== null) ? args[0] : '';
     let year = '';
     if(Array.isArray(interaction)) {
         year = interaction[0];
